@@ -400,8 +400,14 @@
             cat.velocity += gravity;
             cat.y += cat.velocity;
 
-            if (cat.y > canvas.height - 70) {
-              cat.y = canvas.height - 70;
+            // 천장에 부딪치면 다시 내려오게
+            if (cat.y < 0) {
+              cat.y = 0;
+              cat.velocity = 0;
+            }
+
+            if (cat.y > canvas.height - cat.height) {
+              cat.y = canvas.height - cat.height;
               cat.jumping = false;
               cat.velocity = 0;
             }
