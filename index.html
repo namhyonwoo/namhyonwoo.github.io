@@ -490,14 +490,23 @@
             const container = canvas.parentElement;
             const containerWidth = container.clientWidth;
             
-            // 모바일에서는 더 작은 비율 적용
+            // 모바일 환경 체크 (화면 너비가 768px 미만일 때)
+            const isMobile = window.innerWidth < 768;
+            
             canvas.width = Math.min(800, containerWidth - 20); // 여백 고려
-            canvas.height = canvas.width * 0.5; // 2:1 비율 유지
+            
+            // 모바일에서는 더 높은 비율 적용
+            if (isMobile) {
+                canvas.height = canvas.width * 0.7; // 모바일에서는 7:10 비율
+                cat.y = canvas.height - cat.height; // 모바일에서는 바닥에 최대한 가깝게
+            } else {
+                canvas.height = canvas.width * 0.5; // 데스크톱에서는 1:2 비율
+                cat.y = canvas.height - cat.height - 20; // 데스크톱에서는 기존 간격 유지
+            }
             
             // 고양이 크기도 캔버스 크기에 비례하여 조정
-            cat.width = canvas.width * 0.0625; // 50/800 = 0.0625
+            cat.width = canvas.width * 0.0625;
             cat.height = cat.width;
-            cat.y = canvas.height - cat.height - 20; // 바닥에서 약간 띄움
         }
 
         // 리사이즈 이벤트 리스너 추가
