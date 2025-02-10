@@ -60,12 +60,12 @@
     }
 
     #gameCanvas {
-      max-width: 100%;
+      /* max-width: 100%;  기존 max-width 삭제 */
       height: auto;
     }
 
     .game-container {
-      width: 100%;
+      width: 100%; /* game-container width 100% */
       padding: 0 10px;
       box-sizing: border-box;
     }
@@ -229,274 +229,13 @@
           </div>
         </div>
       </div>
+      <div class="flex justify-center mt-4">  <!-- 시작하기 버튼 추가 -->
+        <button id="startButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          시작하기
+        </button>
+      </div>
     </div>
 
-    <script>
-      const canvas = document.getElementById("gameCanvas");
-      const ctx = canvas.getContext("2d");
-      const catImg = new Image();
-      catImg.src =
-        "https://raw.githubusercontent.com/namhyonwoo/namhyonwoo.github.io/main/asset/cat.jpg";
-
-      let cat = {
-        x: 50,
-        y: canvas.height - 70,
-        width: 50,
-        height: 50,
-        velocity: 0,
-        jumping: false,
-      };
-
-      let obstacles = [];
-      let clouds = [];
-      let birds = [];
-      let leaves = [];
-      let score = 0;
-      let gameActive = true;
-      const gravity = 0.8;
-      const jumpForce = -15;
-
-      // 풀밭 설정
-      const grassHeight = 20;
-      let grassOffset = 0;
-
-      function startGame() {
-        resizeCanvas(); // 추가
-        cat.y = canvas.height - 70;
-        cat.velocity = 0;
-        cat.jumping = false;
-        obstacles = [];
-        clouds = [];
-        birds = [];
-        leaves = [];
-        score = 0;
-        gameActive = true;
-        grassOffset = 0;
-        document.getElementById("gameOver").classList.add("hidden");
-        document.getElementById("score").textContent = "점수: 0";
-        animate();
-      }
-
-      function createObstacle() {
-        const height = Math.random() * 100 + 50;
-        obstacles.push({
-          x: canvas.width,
-          y: canvas.height - height,
-          width: 30,
-          height: height,
-        });
-      }
-
-      function createCloud() {
-        clouds.push({
-          x: canvas.width,
-          y: Math.random() * 100,
-          width: 60,
-          height: 30,
-        });
-      }
-
-      function createBird() {
-        birds.push({
-          x: canvas.width,
-          y: Math.random() * 150,
-          width: 30,
-          height: 20,
-        });
-      }
-
-      function createLeaf() {
-        leaves.push({
-          x: canvas.width,
-          y: Math.random() * 200,
-          width: 20,
-          height: 20,
-        });
-      }
-
-      canvas.addEventListener("click", () => {
-        if (gameActive) {
-          cat.velocity = jumpForce;
-          cat.jumping = true;
-        }
-      });
-
-      function checkCollision(rect1, rect2) {
-        return (
-          rect1.x < rect2.x + rect2.width &&
-          rect1.x + rect1.width > rect2.x &&
-          rect1.y < rect2.y + rect2.height &&
-          rect1.y + rect1.height > rect2.y
-        );
-      }
-
-      function gameOverScreen() {
-        gameActive = false;
-        document.getElementById("gameOver").classList.remove("hidden");
-        document.getElementById(
-          "finalScore"
-        ).textContent = `최종 점수: ${score}`;
-      }
-
-      function drawCloud(cloud) {
-        ctx.fillStyle = "#D3D3D3";
-        ctx.beginPath();
-        ctx.arc(cloud.x, cloud.y, 20, Math.PI * 0.5, Math.PI * 1.5);
-        ctx.arc(cloud.x + 25, cloud.y - 20, 25, Math.PI * 1, Math.PI * 1.85);
-        ctx.arc(cloud.x + 50, cloud.y - 10, 20, Math.PI * 1.37, Math.PI * 1.91);
-        ctx.arc(cloud.x + 50, cloud.y + 10, 20, Math.PI * 1.5, Math.PI * 0.5);
-        ctx.closePath();
-        ctx.fill();
-      }
-
-      function drawBird(bird) {
-        ctx.fillStyle = "#000000";
-        ctx.beginPath();
-        ctx.moveTo(bird.x, bird.y);
-        ctx.bezierCurveTo(bird.x + 10, bird.y - 10, bird.x + 20, bird.y - 10, bird.x + 30, bird.y);
-        ctx.bezierCurveTo(bird.x + 20, bird.y + 10, bird.x + 10, bird.y + 10, bird.x, bird.y);
-        ctx.fill();
-      }
-
-      function drawLeaf(leaf) {
-        ctx.fillStyle = "#8B4513";
-        ctx.beginPath();
-        ctx.arc(leaf.x, leaf.y, 10, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      function animate() {
-        if (!gameActive) return;
-
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // 고양이 물리 계산
-        if (cat.jumping) {
-          cat.velocity += gravity;
-          cat.y += cat.velocity;
-
-          // 천장에 부딪치면 다시 내려오게
-          if (cat.y < 0) {
-            cat.y = 0;
-            cat.velocity = 0;
-          }
-
-          if (cat.y > canvas.height - cat.height) {
-            cat.y = canvas.height - cat.height;
-            cat.jumping = false;
-            cat.velocity = 0;
-          }
-        }
-
-        // 고양이 그리기
-        ctx.drawImage(catImg, cat.x, cat.y, cat.width, cat.height);
-
-        // 풀밭 그리기
-        grassOffset -= 2;
-        if (grassOffset < -canvas.width) {
-          grassOffset = 0;
-        }
-        ctx.fillStyle = "#228B22"; // 풀밭 색상
-        ctx.fillRect(grassOffset, canvas.height - grassHeight, canvas.width, grassHeight);
-        ctx.fillRect(grassOffset + canvas.width, canvas.height - grassHeight, canvas.width, grassHeight);
-
-        // 장애물 생성 및 이동
-        if (Math.random() < 0.02) {
-          createObstacle();
-        }
-
-        obstacles.forEach((obstacle, index) => {
-          obstacle.x -= 5;
-          ctx.fillStyle = "#4A5568";
-          ctx.fillRect(
-            obstacle.x,
-            obstacle.y,
-            obstacle.width,
-            obstacle.height
-          );
-
-          // 충돌 체크
-          if (checkCollision(cat, obstacle)) {
-            gameOverScreen();
-          }
-
-          // 점수 계산
-          if (obstacle.x + obstacle.width < cat.x && !obstacle.passed) {
-            score++;
-            obstacle.passed = true;
-            document.getElementById("score").textContent = `점수: ${score}`;
-          }
-        });
-
-        // 구름 생성 및 이동
-        if (Math.random() < 0.01) {
-          createCloud();
-        }
-
-        clouds.forEach((cloud, index) => {
-          cloud.x -= 1;
-          drawCloud(cloud);
-        });
-
-        // 새 생성 및 이동
-        if (Math.random() < 0.005) {
-          createBird();
-        }
-
-        birds.forEach((bird, index) => {
-          bird.x -= 3;
-          drawBird(bird);
-        });
-
-        // 나뭇잎 생성 및 이동
-        if (Math.random() < 0.007) {
-          createLeaf();
-        }
-
-        leaves.forEach((leaf, index) => {
-          leaf.x -= 2;
-          drawLeaf(leaf);
-        });
-
-        // 화면 밖으로 나간 요소 제거
-        obstacles = obstacles.filter((obs) => obs.x + obs.width > 0);
-        clouds = clouds.filter((cloud) => cloud.x + cloud.width > 0);
-        birds = birds.filter((bird) => bird.x + bird.width > 0);
-        leaves = leaves.filter((leaf) => leaf.x + leaf.width > 0);
-
-        requestAnimationFrame(animate);
-      }
-
-      function resizeCanvas() {
-        const container = canvas.parentElement;
-        const containerWidth = container.clientWidth;
-
-        // 모바일 환경 체크 (화면 너비가 768px 미만일 때)
-        const isMobile = window.innerWidth < 768;
-
-        canvas.width = Math.min(800, containerWidth - 20); // 여백 고려
-
-        // 모바일에서는 더 높은 비율 적용
-        if (isMobile) {
-          canvas.height = canvas.width * 0.7; // 모바일에서는 7:10 비율
-          cat.y = canvas.height - cat.height; // 모바일에서는 바닥에 최대한 가깝게
-        } else {
-          canvas.height = canvas.width * 0.5; // 데스크톱에서는 1:2 비율
-          cat.y = canvas.height - cat.height - 20; // 데스크톱에서는 기존 간격 유지
-        }
-
-        // 고양이 크기도 캔버스 크기에 비례하여 조정
-        cat.width = canvas.width * 0.0625;
-        cat.height = cat.width;
-      }
-
-      // 리사이즈 이벤트 리스너 추가
-      window.addEventListener('resize', resizeCanvas);
-      // 초기 로드 시에도 실행
-      window.addEventListener('load', resizeCanvas);
-
-      catImg.onload = startGame;
-    </script>
   </main>
 
   <!-- github giscus -->
@@ -520,4 +259,289 @@
   </footer>
 </body>
 
-</html>
+<script>
+  const canvas = document.getElementById("gameCanvas");
+  const ctx = canvas.getContext("2d");
+  const catImg = new Image();
+  catImg.src =
+    "https://raw.githubusercontent.com/namhyonwoo/namhyonwoo.github.io/main/asset/cat.jpg";
+
+  let cat = {
+    x: 50,
+    y: canvas.height - 70,
+    width: 50,
+    height: 50,
+    velocity: 0,
+    jumping: false,
+  };
+
+  let obstacles = [];
+  let clouds = [];
+  let birds = [];
+  let leaves = [];
+  let score = 0;
+  let gameActive = false; // 초기에는 게임 비활성화
+  const gravity = 0.8;
+  const jumpForce = -15;
+
+  // 풀밭 설정
+  const grassHeight = 20;
+  let grassOffset = 0;
+
+  // 시작 화면 (버튼)
+  function drawStartScreen() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "rgba(128, 128, 128, 0.8)"; // 회색 반투명 배경색으로 변경
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    ctx.fillText(
+      "시작하기 버튼을 눌러 시작하세요",
+      canvas.width / 2,
+      canvas.height / 2
+    );
+  }
+
+  function startGame() {
+    resizeCanvas(); // 추가
+    cat.y = canvas.height - 70;
+    cat.velocity = 0;
+    cat.jumping = false;
+    obstacles = [];
+    clouds = [];
+    birds = [];
+    leaves = [];
+    score = 0;
+    gameActive = true; // 게임 활성화
+    grassOffset = 0;
+    document.getElementById("gameOver").classList.add("hidden");
+    document.getElementById("score").textContent = "점수: 0";
+    animate();
+  }
+
+  function createObstacle() {
+    const height = Math.random() * 100 + 50;
+    obstacles.push({
+      x: canvas.width,
+      y: canvas.height - height,
+      width: 30,
+      height: height,
+    });
+  }
+
+  function createCloud() {
+    clouds.push({
+      x: canvas.width,
+      y: Math.random() * 100,
+      width: 60,
+      height: 30,
+    });
+  }
+
+  function createBird() {
+    birds.push({
+      x: canvas.width,
+      y: Math.random() * 150,
+      width: 30,
+      height: 20,
+    });
+  }
+
+  function createLeaf() {
+    leaves.push({
+      x: canvas.width,
+      y: Math.random() * 200,
+      width: 20,
+      height: 20,
+    });
+  }
+
+  // 점프 이벤트 (클릭)
+  canvas.addEventListener("click", () => {
+    if (gameActive) {
+      cat.velocity = jumpForce;
+      cat.jumping = true;
+    }
+  });
+
+  function checkCollision(rect1, rect2) {
+    return (
+      rect1.x < rect2.x + rect2.width &&
+      rect1.x + rect1.width > rect2.x &&
+      rect1.y < rect2.y + rect2.height &&
+      rect1.y + rect1.height > rect2.y
+    );
+  }
+
+  function gameOverScreen() {
+    gameActive = false;
+    document.getElementById("gameOver").classList.remove("hidden");
+    document.getElementById(
+      "finalScore"
+    ).textContent = `최종 점수: ${score}`;
+  }
+
+  function drawCloud(cloud) {
+    ctx.fillStyle = "#D3D3D3";
+    ctx.beginPath();
+    ctx.arc(cloud.x, cloud.y, 20, Math.PI * 0.5, Math.PI * 1.5);
+    ctx.arc(cloud.x + 25, cloud.y - 20, 25, Math.PI * 1, Math.PI * 1.85);
+    ctx.arc(cloud.x + 50, cloud.y - 10, 20, Math.PI * 1.37, Math.PI * 1.91);
+    ctx.arc(cloud.x + 50, cloud.y + 10, 20, Math.PI * 1.5, Math.PI * 0.5);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  function drawBird(bird) {
+    ctx.fillStyle = "#000000";
+    ctx.beginPath();
+    ctx.moveTo(bird.x, bird.y);
+    ctx.bezierCurveTo(bird.x + 10, bird.y - 10, bird.x + 20, bird.y - 10, bird.x + 30, bird.y);
+    ctx.bezierCurveTo(bird.x + 20, bird.y + 10, bird.x + 10, bird.y + 10, bird.x, bird.y);
+    ctx.fill();
+  }
+
+  function drawLeaf(leaf) {
+    ctx.fillStyle = "#8B4513";
+    ctx.beginPath();
+    ctx.arc(leaf.x, leaf.y, 10, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function animate() {
+    if (!gameActive) return;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // 고양이 물리 계산
+    if (cat.jumping) {
+      cat.velocity += gravity;
+      cat.y += cat.velocity;
+
+      // 천장에 부딪치면 다시 내려오게
+      if (cat.y < 0) {
+        cat.y = 0;
+        cat.velocity = 0;
+      }
+
+      if (cat.y > canvas.height - cat.height) {
+        cat.y = canvas.height - cat.height;
+        cat.jumping = false;
+        cat.velocity = 0;
+      }
+    }
+
+    // 고양이 그리기
+    ctx.drawImage(catImg, cat.x, cat.y, cat.width, cat.height);
+
+    // 풀밭 그리기
+    grassOffset -= 2;
+    if (grassOffset < -canvas.width) {
+      grassOffset = 0;
+    }
+    ctx.fillStyle = "#228B22"; // 풀밭 색상
+    ctx.fillRect(grassOffset, canvas.height - grassHeight, canvas.width, grassHeight);
+    ctx.fillRect(grassOffset + canvas.width, canvas.height - grassHeight, canvas.width, grassHeight);
+
+    // 장애물 생성 및 이동
+    if (Math.random() < 0.02) {
+      createObstacle();
+    }
+
+    obstacles.forEach((obstacle, index) => {
+      obstacle.x -= 5;
+      ctx.fillStyle = "#4A5568";
+      ctx.fillRect(
+        obstacle.x,
+        obstacle.y,
+        obstacle.width,
+        obstacle.height
+      );
+
+      // 충돌 체크
+      if (checkCollision(cat, obstacle)) {
+        gameOverScreen();
+      }
+
+      // 점수 계산
+      if (obstacle.x + obstacle.width < cat.x && !obstacle.passed) {
+        score++;
+        obstacle.passed = true;
+        document.getElementById("score").textContent = `점수: ${score}`;
+      }
+    });
+
+    // 구름 생성 및 이동
+    if (Math.random() < 0.01) {
+      createCloud();
+    }
+
+    clouds.forEach((cloud, index) => {
+      cloud.x -= 1;
+      drawCloud(cloud);
+    });
+
+    // 새 생성 및 이동
+    if (Math.random() < 0.005) {
+      createBird();
+    }
+
+    birds.forEach((bird, index) => {
+      bird.x -= 3;
+      drawBird(bird);
+    });
+
+    // 나뭇잎 생성 및 이동
+    if (Math.random() < 0.007) {
+      createLeaf();
+    }
+
+    leaves.forEach((leaf, index) => {
+      leaf.x -= 2;
+      drawLeaf(leaf);
+    });
+
+    // 화면 밖으로 나간 요소 제거
+    obstacles = obstacles.filter((obs) => obs.x + obs.width > 0);
+    clouds = clouds.filter((cloud) => cloud.x + cloud.width > 0);
+    birds = birds.filter((bird) => bird.x + bird.width > 0);
+    leaves = leaves.filter((leaf) => leaf.x + leaf.width > 0);
+
+    requestAnimationFrame(animate);
+  }
+
+  function resizeCanvas() {
+    const container = canvas.parentElement;
+    const containerWidth = container.clientWidth;
+
+    // 모바일 환경 체크 (화면 너비가 768px 미만일 때)
+    const isMobile = window.innerWidth < 768;
+
+    canvas.width = containerWidth; // 캔버스 가로 크기를 컨테이너에 꽉 채우도록 수정
+
+    // 모바일에서는 더 높은 비율 적용
+    if (isMobile) {
+      canvas.height = canvas.width * 0.7; // 모바일에서는 7:10 비율
+      cat.y = canvas.height - cat.height; // 모바일에서는 바닥에 최대한 가깝게
+    } else {
+      canvas.height = canvas.width * 0.5; // 데스크톱에서는 1:2 비율
+      cat.y = canvas.height - cat.height - 20; // 데스크톱에서는 기존 간격 유지
+    }
+
+    // 고양이 크기도 캔버스 크기에 비례하여 조정
+    cat.width = canvas.width * 0.0625;
+    cat.height = cat.width;
+  }
+
+  // 리사이즈 이벤트 리스너 추가
+  window.addEventListener('resize', resizeCanvas);
+  // 초기 로드 시에도 실행
+  window.addEventListener('load', resizeCanvas);
+
+  const startButton = document.getElementById('startButton'); // 시작하기 버튼 요소 가져오기
+  startButton.addEventListener('click', startGame); // 시작하기 버튼 클릭 시 startGame 함수 호출
+
+  // 초기 시작 화면 표시
+  catImg.onload = drawStartScreen;
+</script>
