@@ -137,30 +137,36 @@
     <nav class="container py-4">
       <div class="flex items-center justify-between">
         <a href="/index.html" class="text-2xl font-semibold text-gray-800">인생유틸</a>
-        <ul class="flex space-x-6">
-          <li>
-            <a href="/index.html" class="text-gray-600 hover:text-gray-800">홈</a>
-          </li>
-          <li>
-            <a href="/real-age-calculator.html" class="text-gray-600 hover:text-gray-800">만 나이 계산기</a>
-          </li>
-          <li>
-            <a href="/bmi-calculator.html" class="text-gray-600 hover:text-gray-800">비만도 계산기</a>
-          </li>
-          <li>
-            <a href="/date-calculator.html" class="text-gray-600 hover:text-gray-800">날짜 계산기</a>
-          </li>
-          <li>
-            <a href="/text-diff.html" class="text-gray-600 hover:text-gray-800">텍스트 비교</a>
-          </li>
-          <li>
-            <a href="/roulette.html" class="text-gray-600 hover:text-gray-800">돌려돌려 게임</a>
-          </li>
-        </ul>
+
       </div>
     </nav>
   </header>
 
+  <!-- 분리된 하단 네비게이션: 메뉴 항목들이 한 줄로 나열되며, 길어지면 수평 스크롤이 가능 -->
+  <div class="bg-white border-t border-b shadow-sm">
+    <div class="container mx-auto overflow-x-auto">
+      <ul class="flex flex-nowrap space-x-4 px-4 py-2 whitespace-nowrap">
+        <li>
+          <a href="/index.html" class="text-gray-600 hover:text-gray-800 text-sm">홈</a>
+        </li>
+        <li>
+          <a href="/real-age-calculator.html" class="text-gray-600 hover:text-gray-800 text-sm">만 나이 계산기</a>
+        </li>
+        <li>
+          <a href="/bmi-calculator.html" class="text-gray-600 hover:text-gray-800 text-sm">비만도 계산기</a>
+        </li>
+        <li>
+          <a href="/date-calculator.html" class="text-gray-600 hover:text-gray-800 text-sm">날짜 계산기</a>
+        </li>
+        <li>
+          <a href="/text-diff.html" class="text-gray-600 hover:text-gray-800 text-sm">텍스트 비교</a>
+        </li>
+        <li>
+          <a href="/roulette.html" class="text-gray-600 hover:text-gray-800 text-sm">돌려돌려 게임</a>
+        </li>
+      </ul>
+    </div>
+  </div>
   <!-- Content -->
   <main class="container py-12">
     <h1 class="text-3xl font-bold mb-8 text-center">텍스트 비교 도구</h1>
