@@ -1,337 +1,302 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>텍스트 비교 도구 - 인생유틸</title>
-    <meta
-      name="description"
-      content="두 텍스트를 비교하여 차이점을 쉽게 확인할 수 있는 도구입니다."
-    />
-    <meta
-      name="keywords"
-      content="텍스트 비교, 텍스트 차이, 비교 도구, diff 도구"
-    />
-    <!-- 기존 CSS 링크들 -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    />
-    <style>
-      .container {
-        max-width: 1200px;
-        margin-left: auto;
-        margin-right: auto;
-        padding-left: 1rem;
-        padding-right: 1rem;
-      }
-      body {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-      }
-      main {
-        flex: 1;
-      }
-      .diff-highlight {
-        background-color: #ffd7d7;
-      }
-      .diff-added {
-        background-color: #d7ffd7;
-      }
-      .line-number {
-        color: #666;
-        min-width: 3em;
-        display: inline-block;
-        margin-right: 1em;
-        user-select: none;
-      }
-      .line-deleted {
-        background-color: #ffd7d7;
-        color: #c53030;
-      }
-      .line-added {
-        background-color: #d7ffd7;
-        color: #2f855a;
-      }
-      .diff-marker {
-        font-weight: bold;
-        margin-right: 0.5em;
-      }
-      .editor-container {
-        position: relative;
-        border: 1px solid #e2e8f0;
-        border-radius: 0.5rem;
-        background: #fff;
-        max-width: calc(60ch + 50px + 2rem);
-        margin: 0 auto;
-      }
-      
-      .line-numbers {
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 40px;
-        padding: 1rem 0;
-        background: #f7fafc;
-        border-right: 1px solid #e2e8f0;
-        color: #718096;
-        font-family: monospace;
-        font-size: 14px;
-        line-height: 1.5;
-        text-align: right;
-        user-select: none;
-        overflow: hidden;
-      }
-      
-      .line-numbers span {
-        display: block;
-        padding: 0 0.5rem;
-      }
-      
-      .editor-textarea {
-        width: 100%;
-        min-height: 16rem;
-        padding: 1rem 1rem 1rem 50px;
-        font-family: monospace;
-        font-size: 14px;
-        line-height: 1.5;
-        tab-size: 4;
-        resize: vertical;
-        white-space: pre;
-        overflow-wrap: normal;
-        overflow-x: auto;
-        letter-spacing: 0;
-        max-width: calc(60ch + 50px + 2rem);
-        margin: 0 auto;
-      }
-      .line-matched {
-        color: #3182ce;  /* 파란색 */
-      }
-      .result-line {
-        display: flex;
-        align-items: center;
-        padding: 0.25rem 0;
-      }
-      .result-container {
-        overflow-x: auto;
-      }
-      .line-content {
-        display: inline-block;
-        white-space: pre;
-      }
-    </style>
-  </head>
 
-  <body class="bg-gray-100 font-sans">
-    <!-- Header -->
-    <header class="bg-white shadow-md">
-      <nav class="container py-4">
-        <div class="flex items-center justify-between">
-          <a href="/index.html" class="text-2xl font-semibold text-gray-800"
-            >인생유틸</a
-          >
-          <ul class="flex space-x-6">
-            <li>
-              <a href="/index.html" class="text-gray-600 hover:text-gray-800"
-                >홈</a
-              >
-            </li>
-            <li>
-              <a
-                href="/real-age-calculator.html"
-                class="text-gray-600 hover:text-gray-800"
-                >만 나이 계산기</a
-              >
-            </li>
-            <li>
-              <a
-                href="/bmi-calculator.html"
-                class="text-gray-600 hover:text-gray-800"
-                >비만도 계산기</a
-              >
-            </li>
-            <li>
-              <a
-                href="/date-calculator.html"
-                class="text-gray-600 hover:text-gray-800"
-                >날짜 계산기</a
-              >
-            </li>
-            <li>
-              <a
-                href="/text-diff.html"
-                class="text-gray-600 hover:text-gray-800"
-                >텍스트 비교</a
-              >
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>텍스트 비교 도구 - 인생유틸</title>
+  <meta name="description" content="두 텍스트를 비교하여 차이점을 쉽게 확인할 수 있는 도구입니다." />
+  <meta name="keywords" content="텍스트 비교, 텍스트 차이, 비교 도구, diff 도구" />
+  <!-- 기존 CSS 링크들 -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    .container {
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
 
-    <!-- Content -->
-    <main class="container py-12">
-      <h1 class="text-3xl font-bold mb-8 text-center">텍스트 비교 도구</h1>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-        <div>
-          <label class="block text-gray-700 text-sm font-bold mb-2 text-center">
-            소스 텍스트
-          </label>
-          <div class="editor-container">
-            <div class="line-numbers" id="lineNumbers1"></div>
-            <textarea
-              id="text1"
-              class="editor-textarea"
-              placeholder="원본(소스) 텍스트를 입력하세요"
-              spellcheck="false"
-              onscroll="syncScroll(this, 'lineNumbers1')"
-              onkeyup="updateLineNumbers(this, 'lineNumbers1')"
-              wrap="off"
-            ></textarea>
-          </div>
-        </div>
-        <div>
-          <label class="block text-gray-700 text-sm font-bold mb-2 text-center">
-            대상 텍스트
-          </label>
-          <div class="editor-container">
-            <div class="line-numbers" id="lineNumbers2"></div>
-            <textarea
-              id="text2"
-              class="editor-textarea"
-              placeholder="비교할(대상) 텍스트를 입력하세요"
-              spellcheck="false"
-              onscroll="syncScroll(this, 'lineNumbers2')"
-              onkeyup="updateLineNumbers(this, 'lineNumbers2')"
-              wrap="off"
-            ></textarea>
-          </div>
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .diff-highlight {
+      background-color: #ffd7d7;
+    }
+
+    .diff-added {
+      background-color: #d7ffd7;
+    }
+
+    .line-number {
+      color: #666;
+      min-width: 3em;
+      display: inline-block;
+      margin-right: 1em;
+      user-select: none;
+    }
+
+    .line-deleted {
+      background-color: #ffd7d7;
+      color: #c53030;
+    }
+
+    .line-added {
+      background-color: #d7ffd7;
+      color: #2f855a;
+    }
+
+    .diff-marker {
+      font-weight: bold;
+      margin-right: 0.5em;
+    }
+
+    .editor-container {
+      position: relative;
+      border: 1px solid #e2e8f0;
+      border-radius: 0.5rem;
+      background: #fff;
+      max-width: calc(60ch + 50px + 2rem);
+      margin: 0 auto;
+    }
+
+    .line-numbers {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 40px;
+      padding: 1rem 0;
+      background: #f7fafc;
+      border-right: 1px solid #e2e8f0;
+      color: #718096;
+      font-family: monospace;
+      font-size: 14px;
+      line-height: 1.5;
+      text-align: right;
+      user-select: none;
+      overflow: hidden;
+    }
+
+    .line-numbers span {
+      display: block;
+      padding: 0 0.5rem;
+    }
+
+    .editor-textarea {
+      width: 100%;
+      min-height: 16rem;
+      padding: 1rem 1rem 1rem 50px;
+      font-family: monospace;
+      font-size: 14px;
+      line-height: 1.5;
+      tab-size: 4;
+      resize: vertical;
+      white-space: pre;
+      overflow-wrap: normal;
+      overflow-x: auto;
+      letter-spacing: 0;
+      max-width: calc(60ch + 50px + 2rem);
+      margin: 0 auto;
+    }
+
+    .line-matched {
+      color: #3182ce;
+      /* 파란색 */
+    }
+
+    .result-line {
+      display: flex;
+      align-items: center;
+      padding: 0.25rem 0;
+    }
+
+    .result-container {
+      overflow-x: auto;
+    }
+
+    .line-content {
+      display: inline-block;
+      white-space: pre;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 font-sans">
+  <!-- Header -->
+  <header class="bg-white shadow-md">
+    <nav class="container py-4">
+      <div class="flex items-center justify-between">
+        <a href="/index.html" class="text-2xl font-semibold text-gray-800">인생유틸</a>
+        <ul class="flex space-x-6">
+          <li>
+            <a href="/index.html" class="text-gray-600 hover:text-gray-800">홈</a>
+          </li>
+          <li>
+            <a href="/real-age-calculator.html" class="text-gray-600 hover:text-gray-800">만 나이 계산기</a>
+          </li>
+          <li>
+            <a href="/bmi-calculator.html" class="text-gray-600 hover:text-gray-800">비만도 계산기</a>
+          </li>
+          <li>
+            <a href="/date-calculator.html" class="text-gray-600 hover:text-gray-800">날짜 계산기</a>
+          </li>
+          <li>
+            <a href="/text-diff.html" class="text-gray-600 hover:text-gray-800">텍스트 비교</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Content -->
+  <main class="container py-12">
+    <h1 class="text-3xl font-bold mb-8 text-center">텍스트 비교 도구</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div>
+        <label class="block text-gray-700 text-sm font-bold mb-2 text-center">
+          소스 텍스트
+        </label>
+        <div class="editor-container">
+          <div class="line-numbers" id="lineNumbers1"></div>
+          <textarea id="text1" class="editor-textarea" placeholder="원본(소스) 텍스트를 입력하세요" spellcheck="false"
+            onscroll="syncScroll(this, 'lineNumbers1')" onkeyup="updateLineNumbers(this, 'lineNumbers1')"
+            wrap="off"></textarea>
         </div>
       </div>
-
-      <div class="text-center mb-8">
-        <button
-          onclick="compareDiff()"
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          비교하기
-        </button>
+      <div>
+        <label class="block text-gray-700 text-sm font-bold mb-2 text-center">
+          대상 텍스트
+        </label>
+        <div class="editor-container">
+          <div class="line-numbers" id="lineNumbers2"></div>
+          <textarea id="text2" class="editor-textarea" placeholder="비교할(대상) 텍스트를 입력하세요" spellcheck="false"
+            onscroll="syncScroll(this, 'lineNumbers2')" onkeyup="updateLineNumbers(this, 'lineNumbers2')"
+            wrap="off"></textarea>
+        </div>
       </div>
+    </div>
 
-      <div id="result" class="bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-xl font-bold mb-4">비교 결과</h2>
-        <div id="diffResult" class="whitespace-pre-wrap border rounded-lg p-4"></div>
-      </div>
-    </main>
+    <div class="text-center mb-8">
+      <button onclick="compareDiff()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        비교하기
+      </button>
+    </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-6 mt-auto">
-      <div class="container text-center">
-        <p>&copy; 2025 인생유틸. All rights reserved.</p>
-        <p>
-          <a href="/asset/terms.html" class="text-gray-300 hover:text-white"
-            >이용약관</a
-          >
-          |
-          <a href="/contact.html" class="text-gray-300 hover:text-white"
-            >문의하기</a
-          >
-        </p>
-      </div>
-    </footer>
+    <div id="result" class="bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-bold mb-4">비교 결과</h2>
+      <div id="diffResult" class="whitespace-pre-wrap border rounded-lg p-4"></div>
+    </div>
+  </main>
 
-    <script>
-      function compareDiff() {
-        const sourceText = document.getElementById('text1').value;
-        const targetText = document.getElementById('text2').value;
-        
-        const sourceLines = sourceText.split('\n');
-        const targetLines = targetText.split('\n');
-        
-        let resultHTML = '';
-        
-        const maxLines = Math.max(sourceLines.length, targetLines.length);
-        
-        // 소스와 대상이 완전히 일치하는지 확인
-        const isIdentical = sourceText === targetText;
-        
-        if (isIdentical) {
-          resultHTML = '<div class="line-matched"><i class="fas fa-check-circle mr-2"></i>소스와 대상이 일치합니다.</div>';
-        } else {
-          // 대상 기준 비교 결과 - 모든 차이점 표시
-          let hasTargetDiff = false;
-          for (let i = 0; i < maxLines; i++) {
-            const sourceLine = sourceLines[i] || '';
-            const targetLine = targetLines[i] || '';
-            
-            if (sourceLine !== targetLine) {
-              hasTargetDiff = true;
-              if (targetLine) {
-                resultHTML += `<div class="result-line line-added">
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-6 mt-auto">
+    <div class="container text-center">
+      <p>&copy; 2025 인생유틸. All rights reserved.</p>
+      <p>
+        <a href="/asset/terms.html" class="text-gray-300 hover:text-white">이용약관</a>
+        |
+        <a href="/contact.html" class="text-gray-300 hover:text-white">문의하기</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    function compareDiff() {
+      const sourceText = document.getElementById('text1').value;
+      const targetText = document.getElementById('text2').value;
+
+      const sourceLines = sourceText.split('\n');
+      const targetLines = targetText.split('\n');
+
+      let resultHTML = '';
+
+      const maxLines = Math.max(sourceLines.length, targetLines.length);
+
+      // 소스와 대상이 완전히 일치하는지 확인
+      const isIdentical = sourceText === targetText;
+
+      if (isIdentical) {
+        resultHTML = '<div class="line-matched"><i class="fas fa-check-circle mr-2"></i>소스와 대상이 일치합니다.</div>';
+      } else {
+        // 대상 기준 비교 결과 - 모든 차이점 표시
+        let hasTargetDiff = false;
+        for (let i = 0; i < maxLines; i++) {
+          const sourceLine = sourceLines[i] || '';
+          const targetLine = targetLines[i] || '';
+
+          if (sourceLine !== targetLine) {
+            hasTargetDiff = true;
+            if (targetLine) {
+              resultHTML += `<div class="result-line line-added">
                   <span class="line-number">${i + 1}</span>
                   <span class="diff-marker">+</span>
                   <span class="line-content">${escapeHtml(targetLine)}</span>
                 </div>`;
-              }
-              if (sourceLine) {
-                resultHTML += `<div class="result-line line-deleted">
+            }
+            if (sourceLine) {
+              resultHTML += `<div class="result-line line-deleted">
                   <span class="line-number">${i + 1}</span>
                   <span class="diff-marker">-</span>
                   <span class="line-content">${escapeHtml(sourceLine)}</span>
                 </div>`;
-              }
-            } else {
-              resultHTML += `<div class="result-line">
+            }
+          } else {
+            resultHTML += `<div class="result-line">
                 <span class="line-number">${i + 1}</span>
                 <span class="line-content">${escapeHtml(targetLine)}</span>
               </div>`;
-            }
           }
         }
-        
-        document.getElementById('diffResult').innerHTML = `<div class="result-container">${resultHTML}</div>`;
       }
 
-      function escapeHtml(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-      }
+      document.getElementById('diffResult').innerHTML = `<div class="result-container">${resultHTML}</div>`;
+    }
 
-      function updateLineNumbers(textarea, lineNumbersId) {
-        const lineNumbers = document.getElementById(lineNumbersId);
-        const lines = textarea.value.split('\n');
-        const lineCount = lines.length;
-        
-        let lineNumbersHtml = '';
-        for (let i = 1; i <= lineCount; i++) {
-          lineNumbersHtml += `<span>${i}</span>`;
-        }
-        lineNumbers.innerHTML = lineNumbersHtml;
-        
-        // 최소 1줄은 항상 표시
-        if (lineCount === 0) {
-          lineNumbers.innerHTML = '<span>1</span>';
-        }
-      }
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
 
-      function syncScroll(textarea, lineNumbersId) {
-        const lineNumbers = document.getElementById(lineNumbersId);
-        lineNumbers.scrollTop = textarea.scrollTop;
-      }
+    function updateLineNumbers(textarea, lineNumbersId) {
+      const lineNumbers = document.getElementById(lineNumbersId);
+      const lines = textarea.value.split('\n');
+      const lineCount = lines.length;
 
-      // 초기 줄 번호 설정
-      window.addEventListener('load', function() {
-        updateLineNumbers(document.getElementById('text1'), 'lineNumbers1');
-        updateLineNumbers(document.getElementById('text2'), 'lineNumbers2');
-      });
-    </script>
-  </body>
-</html> 
+      let lineNumbersHtml = '';
+      for (let i = 1; i <= lineCount; i++) {
+        lineNumbersHtml += `<span>${i}</span>`;
+      }
+      lineNumbers.innerHTML = lineNumbersHtml;
+
+      // 최소 1줄은 항상 표시
+      if (lineCount === 0) {
+        lineNumbers.innerHTML = '<span>1</span>';
+      }
+    }
+
+    function syncScroll(textarea, lineNumbersId) {
+      const lineNumbers = document.getElementById(lineNumbersId);
+      lineNumbers.scrollTop = textarea.scrollTop;
+    }
+
+    // 초기 줄 번호 설정
+    window.addEventListener('load', function () {
+      updateLineNumbers(document.getElementById('text1'), 'lineNumbers1');
+      updateLineNumbers(document.getElementById('text2'), 'lineNumbers2');
+    });
+  </script>
+</body>
+
+</html>

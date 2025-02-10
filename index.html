@@ -1,583 +1,500 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- SEO Meta Tags -->
-    <title>인생 유틸 : 만 나이, 비만도, 날짜 계산 - 편리하고 정확하게!</title>
-    <meta
-      name="description"
-      content="만 나이 계산기, 비만도 계산기, 날짜 계산기를 한 곳에서! 쉽고 빠르게 결과를 확인하고 생활에 유용한 정보를 얻으세요."
-    />
-    <meta
-      name="keywords"
-      content="만 나이 계산기, 비만도 계산기, BMI 계산기, 날짜 계산기, 생년월일 계산, 나이 계산, 건강 계산기, 생활 계산기, 실생활 계산기"
-    />
-    <meta name="author" content="인생유틸" />
-    <meta name="robots" content="index, follow" />
-    <!-- 검색 엔진 로봇이 페이지를 색인하고 링크를 따라갈 수 있도록 허용 -->
-    <meta name="googlebot" content="index, follow" />
-    <!-- Google 검색 로봇에 대한 명시적 지시 -->
 
-    <!-- Open Graph Meta Tags (Optional - for social media sharing) -->
-    <meta
-      property="og:title"
-      content="생활 필수 계산기: 만 나이, 비만도, 날짜 계산 - 편리하고 정확하게!"
-    />
-    <meta
-      property="og:description"
-      content="만 나이 계산기, 비만도 계산기, 날짜 계산기를 한 곳에서! 쉽고 빠르게 결과를 확인하고 생활에 유용한 정보를 얻으세요."
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="[당신의 웹사이트 URL]" />
-    <meta
-      property="og:image"
-      content="https://raw.githubusercontent.com/namhyonwoo/namhyonwoo.github.io/refs/heads/main/asset/cat-preview.png"
-    />
-    <meta property="og:locale" content="ko_KR" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- SEO Meta Tags -->
+  <title>인생 유틸 : 만 나이, 비만도, 날짜 계산 - 편리하고 정확하게!</title>
+  <meta name="description" content="만 나이 계산기, 비만도 계산기, 날짜 계산기를 한 곳에서! 쉽고 빠르게 결과를 확인하고 생활에 유용한 정보를 얻으세요." />
+  <meta name="keywords" content="만 나이 계산기, 비만도 계산기, BMI 계산기, 날짜 계산기, 생년월일 계산, 나이 계산, 건강 계산기, 생활 계산기, 실생활 계산기" />
+  <meta name="author" content="인생유틸" />
+  <meta name="robots" content="index, follow" />
+  <!-- 검색 엔진 로봇이 페이지를 색인하고 링크를 따라갈 수 있도록 허용 -->
+  <meta name="googlebot" content="index, follow" />
+  <!-- Google 검색 로봇에 대한 명시적 지시 -->
 
-    <!-- Twitter Card Meta Tags (Optional - for Twitter sharing) -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="생활 필수 계산기: 만 나이, 비만도, 날짜 계산 - 편리하고 정확하게!"
-    />
-    <meta
-      name="twitter:description"
-      content="만 나이 계산기, 비만도 계산기, 날짜 계산기를 한 곳에서! 쉽고 빠르게 결과를 확인하고 생활에 유용한 정보를 얻으세요."
-    />
-    <meta
-      name="twitter:image"
-      content="https://raw.githubusercontent.com/namhyonwoo/namhyonwoo.github.io/refs/heads/main/asset/cat-preview.png"
-    />
-    <title>인생유틸</title>
-    <link
-      rel="icon"
-      href="https://raw.githubusercontent.com/namhyonwoo/namhyonwoo.github.io/refs/heads/main/favicon.ico"
-      type="image/x-icon"
-    />
-    <link
-      rel="shortcut icon"
-      href="https://raw.githubusercontent.com/namhyonwoo/namhyonwoo.github.io/refs/heads/main/favicon.ico"
-      type="image/x-icon"
-    />
+  <!-- Open Graph Meta Tags (Optional - for social media sharing) -->
+  <meta property="og:title" content="생활 필수 계산기: 만 나이, 비만도, 날짜 계산 - 편리하고 정확하게!" />
+  <meta property="og:description" content="만 나이 계산기, 비만도 계산기, 날짜 계산기를 한 곳에서! 쉽고 빠르게 결과를 확인하고 생활에 유용한 정보를 얻으세요." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="[당신의 웹사이트 URL]" />
+  <meta property="og:image"
+    content="https://raw.githubusercontent.com/namhyonwoo/namhyonwoo.github.io/refs/heads/main/asset/cat-preview.png" />
+  <meta property="og:locale" content="ko_KR" />
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <style>
-        .container {
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-        body {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        main {
-            flex: 1;
-        }
-       #gameCanvas {
-            max-width: 100%;
-            height: auto;
-        }
-        
-        .game-container {
-            width: 100%;
-            padding: 0 10px;
-            box-sizing: border-box;
-        }
-    </style>
-  </head>
-  <!-- Google adsense  -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7477033351759512"
-  crossorigin="anonymous"></script>
-  <!-- Google tag (gtag.js) -->
-  <script
-    async
-    src="https://www.googletagmanager.com/gtag/js?id=G-M5TQDC8XSH"
-  ></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
+  <!-- Twitter Card Meta Tags (Optional - for Twitter sharing) -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="생활 필수 계산기: 만 나이, 비만도, 날짜 계산 - 편리하고 정확하게!" />
+  <meta name="twitter:description" content="만 나이 계산기, 비만도 계산기, 날짜 계산기를 한 곳에서! 쉽고 빠르게 결과를 확인하고 생활에 유용한 정보를 얻으세요." />
+  <meta name="twitter:image"
+    content="https://raw.githubusercontent.com/namhyonwoo/namhyonwoo.github.io/refs/heads/main/asset/cat-preview.png" />
+  <title>인생유틸</title>
+  <link rel="icon" href="https://raw.githubusercontent.com/namhyonwoo/namhyonwoo.github.io/refs/heads/main/favicon.ico"
+    type="image/x-icon" />
+  <link rel="shortcut icon"
+    href="https://raw.githubusercontent.com/namhyonwoo/namhyonwoo.github.io/refs/heads/main/favicon.ico"
+    type="image/x-icon" />
+
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    .container {
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1rem;
+      padding-right: 1rem;
     }
-    gtag("js", new Date());
 
-    gtag("config", "G-M5TQDC8XSH");
-  </script>
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-  <body class="bg-gray-100 font-sans">
-    <!-- Header -->
-    <header class="bg-white shadow-md">
-      <nav class="container py-4">
-        <div class="flex items-center justify-between">
-          <a href="/index.html" class="text-2xl font-semibold text-gray-800"
-            >인생유틸</a
-          >
-          <ul class="flex space-x-6">
-            <li>
-              <a href="/index.html" class="text-gray-600 hover:text-gray-800"
-                >홈</a
-              >
-            </li>
-            <li>
-              <a
-                href="/real-age-calculator.html"
-                class="text-gray-600 hover:text-gray-800"
-                >만 나이 계산기</a
-              >
-            </li>
-            <li>
-              <a
-                href="/bmi-calculator.html"
-                class="text-gray-600 hover:text-gray-800"
-                >비만도 계산기</a
-              >
-            </li>
-            <li>
-              <a
-                href="/date-calculator.html"
-                class="text-gray-600 hover:text-gray-800"
-                >날짜 계산기</a
-              >
-            </li>
-            <li>
-              <a
-                href="/text-diff.html"
-                class="text-gray-600 hover:text-gray-800"
-                >텍스트 비교</a
-              >
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </header>
+    main {
+      flex: 1;
+    }
 
-    <!-- Content -->
-    <main class="container py-12">
-      <!-- Card Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Home Card -->
-        <a
-          href="/index.html"
-          class="block rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
-        >
-          <div class="bg-white p-6">
-            <i class="fas fa-home text-3xl text-blue-500 mb-2"></i>
-            <h2 class="text-xl font-semibold text-gray-800 mb-2">홈</h2>
-            <p class="text-gray-700">
-              인생유틸의 메인 페이지입니다. 다양한 유틸리티를 만나보세요.
-            </p>
-          </div>
-        </a>
+    #gameCanvas {
+      max-width: 100%;
+      height: auto;
+    }
 
-        <!-- Age Calculator Card -->
-        <a
-          href="/real-age-calculator.html"
-          class="block rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
-        >
-          <div class="bg-white p-6">
-            <i class="fas fa-birthday-cake text-3xl text-green-500 mb-2"></i>
-            <h2 class="text-xl font-semibold text-gray-800 mb-2">
-              만 나이 계산기
-            </h2>
-            <p class="text-gray-700">
-              생년월일을 입력하여 정확한 만 나이를 계산해보세요.
-            </p>
-          </div>
-        </a>
+    .game-container {
+      width: 100%;
+      padding: 0 10px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<!-- Google adsense  -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7477033351759512"
+  crossorigin="anonymous"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M5TQDC8XSH"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
 
-        <!-- BMI Calculator Card -->
-        <a
-          href="/bmi-calculator.html"
-          class="block rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
-        >
-          <div class="bg-white p-6">
-            <i class="fas fa-weight-scale text-3xl text-yellow-500 mb-2"></i>
-            <h2 class="text-xl font-semibold text-gray-800 mb-2">
-              비만도 계산기
-            </h2>
-            <p class="text-gray-700">
-              키와 몸무게를 입력하여 BMI 지수를 확인하고 건강 상태를 알아보세요.
-            </p>
-          </div>
-        </a>
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
 
-        <!-- Date Calculator Card -->
-        <a
-          href="/date-calculator.html"
-          class="block rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
-        >
-          <div class="bg-white p-6">
-            <i class="far fa-calendar-alt text-3xl text-red-500 mb-2"></i>
-            <h2 class="text-xl font-semibold text-gray-800 mb-2">
-              날짜 계산기
-            </h2>
-            <p class="text-gray-700">
-              특정 날짜로부터 며칠 후, 혹은 두 날짜 사이의 간격을 계산해보세요.
-            </p>
-          </div>
-        </a>
+  gtag("config", "G-M5TQDC8XSH");
+</script>
 
-        <!-- Text Diff Card -->
-        <a
-          href="/text-diff.html"
-          class="block rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
-        >
-          <div class="bg-white p-6">
-            <i class="fas fa-code-compare text-3xl text-purple-500 mb-2"></i>
-            <h2 class="text-xl font-semibold text-gray-800 mb-2">
-              텍스트 비교
-            </h2>
-            <p class="text-gray-700">
-              두 텍스트를 비교하여 차이점을 쉽게 확인할 수 있습니다.
-            </p>
-          </div>
-        </a>
+<body class="bg-gray-100 font-sans">
+  <!-- Header -->
+  <header class="bg-white shadow-md">
+    <nav class="container py-4">
+      <div class="flex items-center justify-between">
+        <a href="/index.html" class="text-2xl font-semibold text-gray-800">인생유틸</a>
+        <ul class="flex space-x-6">
+          <li>
+            <a href="/index.html" class="text-gray-600 hover:text-gray-800">홈</a>
+          </li>
+          <li>
+            <a href="/real-age-calculator.html" class="text-gray-600 hover:text-gray-800">만 나이 계산기</a>
+          </li>
+          <li>
+            <a href="/bmi-calculator.html" class="text-gray-600 hover:text-gray-800">비만도 계산기</a>
+          </li>
+          <li>
+            <a href="/date-calculator.html" class="text-gray-600 hover:text-gray-800">날짜 계산기</a>
+          </li>
+          <li>
+            <a href="/text-diff.html" class="text-gray-600 hover:text-gray-800">텍스트 비교</a>
+          </li>
+        </ul>
       </div>
+    </nav>
+  </header>
 
-      <!-- Cat Jump Game -->
-      <div class="mt-12">
-        <h2 class="text-2xl font-bold mb-6 text-center">
-          고양이 장애물 피하기
-        </h2>
-        <div class="flex justify-center">
-          <div class="relative game-container">
-             <canvas id="gameCanvas" class="border border-gray-300 rounded-lg"></canvas>
-            <div id="score" class="absolute top-4 left-4 text-xl font-bold">
-              점수: 0
-            </div>
-            <div
-              id="gameOver"
-              class="hidden absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center"
-            >
-              <div class="text-white text-center">
-                <h3 class="text-2xl font-bold mb-4">게임 오버!</h3>
-                <p id="finalScore" class="text-xl mb-4">최종 점수: 0</p>
-                <button
-                  onclick="startGame()"
-                  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                >
-                  다시 시작
-                </button>
-              </div>
+  <!-- Content -->
+  <main class="container py-12">
+    <!-- Card Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Home Card -->
+      <a href="/index.html" class="block rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+        <div class="bg-white p-6">
+          <i class="fas fa-home text-3xl text-blue-500 mb-2"></i>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">홈</h2>
+          <p class="text-gray-700">
+            인생유틸의 메인 페이지입니다. 다양한 유틸리티를 만나보세요.
+          </p>
+        </div>
+      </a>
+
+      <!-- Age Calculator Card -->
+      <a href="/real-age-calculator.html"
+        class="block rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+        <div class="bg-white p-6">
+          <i class="fas fa-birthday-cake text-3xl text-green-500 mb-2"></i>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">
+            만 나이 계산기
+          </h2>
+          <p class="text-gray-700">
+            생년월일을 입력하여 정확한 만 나이를 계산해보세요.
+          </p>
+        </div>
+      </a>
+
+      <!-- BMI Calculator Card -->
+      <a href="/bmi-calculator.html" class="block rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+        <div class="bg-white p-6">
+          <i class="fas fa-weight-scale text-3xl text-yellow-500 mb-2"></i>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">
+            비만도 계산기
+          </h2>
+          <p class="text-gray-700">
+            키와 몸무게를 입력하여 BMI 지수를 확인하고 건강 상태를 알아보세요.
+          </p>
+        </div>
+      </a>
+
+      <!-- Date Calculator Card -->
+      <a href="/date-calculator.html" class="block rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+        <div class="bg-white p-6">
+          <i class="far fa-calendar-alt text-3xl text-red-500 mb-2"></i>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">
+            날짜 계산기
+          </h2>
+          <p class="text-gray-700">
+            특정 날짜로부터 며칠 후, 혹은 두 날짜 사이의 간격을 계산해보세요.
+          </p>
+        </div>
+      </a>
+
+      <!-- Text Diff Card -->
+      <a href="/text-diff.html" class="block rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+        <div class="bg-white p-6">
+          <i class="fas fa-code-compare text-3xl text-purple-500 mb-2"></i>
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">
+            텍스트 비교
+          </h2>
+          <p class="text-gray-700">
+            두 텍스트를 비교하여 차이점을 쉽게 확인할 수 있습니다.
+          </p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Cat Jump Game -->
+    <div class="mt-12">
+      <h2 class="text-2xl font-bold mb-6 text-center">
+        고양이 장애물 피하기
+      </h2>
+      <div class="flex justify-center">
+        <div class="relative game-container">
+          <canvas id="gameCanvas" class="border border-gray-300 rounded-lg"></canvas>
+          <div id="score" class="absolute top-4 left-4 text-xl font-bold">
+            점수: 0
+          </div>
+          <div id="gameOver" class="hidden absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+            <div class="text-white text-center">
+              <h3 class="text-2xl font-bold mb-4">게임 오버!</h3>
+              <p id="finalScore" class="text-xl mb-4">최종 점수: 0</p>
+              <button onclick="startGame()"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                다시 시작
+              </button>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <script>
-        const canvas = document.getElementById("gameCanvas");
-        const ctx = canvas.getContext("2d");
-        const catImg = new Image();
-        catImg.src =
-          "https://raw.githubusercontent.com/namhyonwoo/namhyonwoo.github.io/main/asset/cat.jpg";
+    <script>
+      const canvas = document.getElementById("gameCanvas");
+      const ctx = canvas.getContext("2d");
+      const catImg = new Image();
+      catImg.src =
+        "https://raw.githubusercontent.com/namhyonwoo/namhyonwoo.github.io/main/asset/cat.jpg";
 
-        let cat = {
-          x: 50,
-          y: canvas.height - 70,
-          width: 50,
-          height: 50,
-          velocity: 0,
-          jumping: false,
-        };
+      let cat = {
+        x: 50,
+        y: canvas.height - 70,
+        width: 50,
+        height: 50,
+        velocity: 0,
+        jumping: false,
+      };
 
-        let obstacles = [];
-        let clouds = [];
-        let birds = [];
-        let leaves = [];
-        let score = 0;
-        let gameActive = true;
-        const gravity = 0.8;
-        const jumpForce = -15;
+      let obstacles = [];
+      let clouds = [];
+      let birds = [];
+      let leaves = [];
+      let score = 0;
+      let gameActive = true;
+      const gravity = 0.8;
+      const jumpForce = -15;
 
-        // 풀밭 설정
-        const grassHeight = 20;
-        let grassOffset = 0;
+      // 풀밭 설정
+      const grassHeight = 20;
+      let grassOffset = 0;
 
-        function startGame() {
-          resizeCanvas(); // 추가
-          cat.y = canvas.height - 70;
-          cat.velocity = 0;
-          cat.jumping = false;
-          obstacles = [];
-          clouds = [];
-          birds = [];
-          leaves = [];
-          score = 0;
-          gameActive = true;
+      function startGame() {
+        resizeCanvas(); // 추가
+        cat.y = canvas.height - 70;
+        cat.velocity = 0;
+        cat.jumping = false;
+        obstacles = [];
+        clouds = [];
+        birds = [];
+        leaves = [];
+        score = 0;
+        gameActive = true;
+        grassOffset = 0;
+        document.getElementById("gameOver").classList.add("hidden");
+        document.getElementById("score").textContent = "점수: 0";
+        animate();
+      }
+
+      function createObstacle() {
+        const height = Math.random() * 100 + 50;
+        obstacles.push({
+          x: canvas.width,
+          y: canvas.height - height,
+          width: 30,
+          height: height,
+        });
+      }
+
+      function createCloud() {
+        clouds.push({
+          x: canvas.width,
+          y: Math.random() * 100,
+          width: 60,
+          height: 30,
+        });
+      }
+
+      function createBird() {
+        birds.push({
+          x: canvas.width,
+          y: Math.random() * 150,
+          width: 30,
+          height: 20,
+        });
+      }
+
+      function createLeaf() {
+        leaves.push({
+          x: canvas.width,
+          y: Math.random() * 200,
+          width: 20,
+          height: 20,
+        });
+      }
+
+      canvas.addEventListener("click", () => {
+        if (gameActive) {
+          cat.velocity = jumpForce;
+          cat.jumping = true;
+        }
+      });
+
+      function checkCollision(rect1, rect2) {
+        return (
+          rect1.x < rect2.x + rect2.width &&
+          rect1.x + rect1.width > rect2.x &&
+          rect1.y < rect2.y + rect2.height &&
+          rect1.y + rect1.height > rect2.y
+        );
+      }
+
+      function gameOverScreen() {
+        gameActive = false;
+        document.getElementById("gameOver").classList.remove("hidden");
+        document.getElementById(
+          "finalScore"
+        ).textContent = `최종 점수: ${score}`;
+      }
+
+      function drawCloud(cloud) {
+        ctx.fillStyle = "#D3D3D3";
+        ctx.beginPath();
+        ctx.arc(cloud.x, cloud.y, 20, Math.PI * 0.5, Math.PI * 1.5);
+        ctx.arc(cloud.x + 25, cloud.y - 20, 25, Math.PI * 1, Math.PI * 1.85);
+        ctx.arc(cloud.x + 50, cloud.y - 10, 20, Math.PI * 1.37, Math.PI * 1.91);
+        ctx.arc(cloud.x + 50, cloud.y + 10, 20, Math.PI * 1.5, Math.PI * 0.5);
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      function drawBird(bird) {
+        ctx.fillStyle = "#000000";
+        ctx.beginPath();
+        ctx.moveTo(bird.x, bird.y);
+        ctx.bezierCurveTo(bird.x + 10, bird.y - 10, bird.x + 20, bird.y - 10, bird.x + 30, bird.y);
+        ctx.bezierCurveTo(bird.x + 20, bird.y + 10, bird.x + 10, bird.y + 10, bird.x, bird.y);
+        ctx.fill();
+      }
+
+      function drawLeaf(leaf) {
+        ctx.fillStyle = "#8B4513";
+        ctx.beginPath();
+        ctx.arc(leaf.x, leaf.y, 10, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      function animate() {
+        if (!gameActive) return;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // 고양이 물리 계산
+        if (cat.jumping) {
+          cat.velocity += gravity;
+          cat.y += cat.velocity;
+
+          // 천장에 부딪치면 다시 내려오게
+          if (cat.y < 0) {
+            cat.y = 0;
+            cat.velocity = 0;
+          }
+
+          if (cat.y > canvas.height - cat.height) {
+            cat.y = canvas.height - cat.height;
+            cat.jumping = false;
+            cat.velocity = 0;
+          }
+        }
+
+        // 고양이 그리기
+        ctx.drawImage(catImg, cat.x, cat.y, cat.width, cat.height);
+
+        // 풀밭 그리기
+        grassOffset -= 2;
+        if (grassOffset < -canvas.width) {
           grassOffset = 0;
-          document.getElementById("gameOver").classList.add("hidden");
-          document.getElementById("score").textContent = "점수: 0";
-          animate();
+        }
+        ctx.fillStyle = "#228B22"; // 풀밭 색상
+        ctx.fillRect(grassOffset, canvas.height - grassHeight, canvas.width, grassHeight);
+        ctx.fillRect(grassOffset + canvas.width, canvas.height - grassHeight, canvas.width, grassHeight);
+
+        // 장애물 생성 및 이동
+        if (Math.random() < 0.02) {
+          createObstacle();
         }
 
-        function createObstacle() {
-          const height = Math.random() * 100 + 50;
-          obstacles.push({
-            x: canvas.width,
-            y: canvas.height - height,
-            width: 30,
-            height: height,
-          });
-        }
+        obstacles.forEach((obstacle, index) => {
+          obstacle.x -= 5;
+          ctx.fillStyle = "#4A5568";
+          ctx.fillRect(
+            obstacle.x,
+            obstacle.y,
+            obstacle.width,
+            obstacle.height
+          );
 
-        function createCloud() {
-          clouds.push({
-            x: canvas.width,
-            y: Math.random() * 100,
-            width: 60,
-            height: 30,
-          });
-        }
+          // 충돌 체크
+          if (checkCollision(cat, obstacle)) {
+            gameOverScreen();
+          }
 
-        function createBird() {
-          birds.push({
-            x: canvas.width,
-            y: Math.random() * 150,
-            width: 30,
-            height: 20,
-          });
-        }
-
-        function createLeaf() {
-          leaves.push({
-            x: canvas.width,
-            y: Math.random() * 200,
-            width: 20,
-            height: 20,
-          });
-        }
-
-        canvas.addEventListener("click", () => {
-          if (gameActive) {
-            cat.velocity = jumpForce;
-            cat.jumping = true;
+          // 점수 계산
+          if (obstacle.x + obstacle.width < cat.x && !obstacle.passed) {
+            score++;
+            obstacle.passed = true;
+            document.getElementById("score").textContent = `점수: ${score}`;
           }
         });
 
-        function checkCollision(rect1, rect2) {
-          return (
-            rect1.x < rect2.x + rect2.width &&
-            rect1.x + rect1.width > rect2.x &&
-            rect1.y < rect2.y + rect2.height &&
-            rect1.y + rect1.height > rect2.y
-          );
+        // 구름 생성 및 이동
+        if (Math.random() < 0.01) {
+          createCloud();
         }
 
-        function gameOverScreen() {
-          gameActive = false;
-          document.getElementById("gameOver").classList.remove("hidden");
-          document.getElementById(
-            "finalScore"
-          ).textContent = `최종 점수: ${score}`;
+        clouds.forEach((cloud, index) => {
+          cloud.x -= 1;
+          drawCloud(cloud);
+        });
+
+        // 새 생성 및 이동
+        if (Math.random() < 0.005) {
+          createBird();
         }
 
-        function drawCloud(cloud) {
-          ctx.fillStyle = "#D3D3D3";
-          ctx.beginPath();
-          ctx.arc(cloud.x, cloud.y, 20, Math.PI * 0.5, Math.PI * 1.5);
-          ctx.arc(cloud.x + 25, cloud.y - 20, 25, Math.PI * 1, Math.PI * 1.85);
-          ctx.arc(cloud.x + 50, cloud.y - 10, 20, Math.PI * 1.37, Math.PI * 1.91);
-          ctx.arc(cloud.x + 50, cloud.y + 10, 20, Math.PI * 1.5, Math.PI * 0.5);
-          ctx.closePath();
-          ctx.fill();
+        birds.forEach((bird, index) => {
+          bird.x -= 3;
+          drawBird(bird);
+        });
+
+        // 나뭇잎 생성 및 이동
+        if (Math.random() < 0.007) {
+          createLeaf();
         }
 
-        function drawBird(bird) {
-          ctx.fillStyle = "#000000";
-          ctx.beginPath();
-          ctx.moveTo(bird.x, bird.y);
-          ctx.bezierCurveTo(bird.x + 10, bird.y - 10, bird.x + 20, bird.y - 10, bird.x + 30, bird.y);
-          ctx.bezierCurveTo(bird.x + 20, bird.y + 10, bird.x + 10, bird.y + 10, bird.x, bird.y);
-          ctx.fill();
+        leaves.forEach((leaf, index) => {
+          leaf.x -= 2;
+          drawLeaf(leaf);
+        });
+
+        // 화면 밖으로 나간 요소 제거
+        obstacles = obstacles.filter((obs) => obs.x + obs.width > 0);
+        clouds = clouds.filter((cloud) => cloud.x + cloud.width > 0);
+        birds = birds.filter((bird) => bird.x + bird.width > 0);
+        leaves = leaves.filter((leaf) => leaf.x + leaf.width > 0);
+
+        requestAnimationFrame(animate);
+      }
+
+      function resizeCanvas() {
+        const container = canvas.parentElement;
+        const containerWidth = container.clientWidth;
+
+        // 모바일 환경 체크 (화면 너비가 768px 미만일 때)
+        const isMobile = window.innerWidth < 768;
+
+        canvas.width = Math.min(800, containerWidth - 20); // 여백 고려
+
+        // 모바일에서는 더 높은 비율 적용
+        if (isMobile) {
+          canvas.height = canvas.width * 0.7; // 모바일에서는 7:10 비율
+          cat.y = canvas.height - cat.height; // 모바일에서는 바닥에 최대한 가깝게
+        } else {
+          canvas.height = canvas.width * 0.5; // 데스크톱에서는 1:2 비율
+          cat.y = canvas.height - cat.height - 20; // 데스크톱에서는 기존 간격 유지
         }
 
-        function drawLeaf(leaf) {
-          ctx.fillStyle = "#8B4513";
-          ctx.beginPath();
-          ctx.arc(leaf.x, leaf.y, 10, 0, Math.PI * 2);
-          ctx.fill();
-        }
+        // 고양이 크기도 캔버스 크기에 비례하여 조정
+        cat.width = canvas.width * 0.0625;
+        cat.height = cat.width;
+      }
 
-        function animate() {
-          if (!gameActive) return;
+      // 리사이즈 이벤트 리스너 추가
+      window.addEventListener('resize', resizeCanvas);
+      // 초기 로드 시에도 실행
+      window.addEventListener('load', resizeCanvas);
 
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
+      catImg.onload = startGame;
+    </script>
+  </main>
 
-          // 고양이 물리 계산
-          if (cat.jumping) {
-            cat.velocity += gravity;
-            cat.y += cat.velocity;
+  <!-- github giscus -->
+  <div id="giscus">
+    <script src="https://giscus.app/client.js" data-repo="namhyonwoo/web-static" data-repo-id="R_kgDON1Fbow"
+      data-category-id="DIC_kwDON1Fbo84Cmt6z" data-mapping="pathname" data-strict="0" data-reactions-enabled="1"
+      data-emit-metadata="0" data-input-position="bottom" data-theme="catppuccin_latte" data-lang="ko"
+      crossorigin="anonymous" async></script>
+  </div>
 
-            // 천장에 부딪치면 다시 내려오게
-            if (cat.y < 0) {
-              cat.y = 0;
-              cat.velocity = 0;
-            }
-
-            if (cat.y > canvas.height - cat.height) {
-              cat.y = canvas.height - cat.height;
-              cat.jumping = false;
-              cat.velocity = 0;
-            }
-          }
-
-          // 고양이 그리기
-          ctx.drawImage(catImg, cat.x, cat.y, cat.width, cat.height);
-
-          // 풀밭 그리기
-          grassOffset -= 2;
-          if (grassOffset < -canvas.width) {
-            grassOffset = 0;
-          }
-          ctx.fillStyle = "#228B22"; // 풀밭 색상
-          ctx.fillRect(grassOffset, canvas.height - grassHeight, canvas.width, grassHeight);
-          ctx.fillRect(grassOffset + canvas.width, canvas.height - grassHeight, canvas.width, grassHeight);
-
-          // 장애물 생성 및 이동
-          if (Math.random() < 0.02) {
-            createObstacle();
-          }
-
-          obstacles.forEach((obstacle, index) => {
-            obstacle.x -= 5;
-            ctx.fillStyle = "#4A5568";
-            ctx.fillRect(
-              obstacle.x,
-              obstacle.y,
-              obstacle.width,
-              obstacle.height
-            );
-
-            // 충돌 체크
-            if (checkCollision(cat, obstacle)) {
-              gameOverScreen();
-            }
-
-            // 점수 계산
-            if (obstacle.x + obstacle.width < cat.x && !obstacle.passed) {
-              score++;
-              obstacle.passed = true;
-              document.getElementById("score").textContent = `점수: ${score}`;
-            }
-          });
-
-          // 구름 생성 및 이동
-          if (Math.random() < 0.01) {
-            createCloud();
-          }
-
-          clouds.forEach((cloud, index) => {
-            cloud.x -= 1;
-            drawCloud(cloud);
-          });
-
-          // 새 생성 및 이동
-          if (Math.random() < 0.005) {
-            createBird();
-          }
-
-          birds.forEach((bird, index) => {
-            bird.x -= 3;
-            drawBird(bird);
-          });
-
-          // 나뭇잎 생성 및 이동
-          if (Math.random() < 0.007) {
-            createLeaf();
-          }
-
-          leaves.forEach((leaf, index) => {
-            leaf.x -= 2;
-            drawLeaf(leaf);
-          });
-
-          // 화면 밖으로 나간 요소 제거
-          obstacles = obstacles.filter((obs) => obs.x + obs.width > 0);
-          clouds = clouds.filter((cloud) => cloud.x + cloud.width > 0);
-          birds = birds.filter((bird) => bird.x + bird.width > 0);
-          leaves = leaves.filter((leaf) => leaf.x + leaf.width > 0);
-
-          requestAnimationFrame(animate);
-        }
-
-        function resizeCanvas() {
-            const container = canvas.parentElement;
-            const containerWidth = container.clientWidth;
-            
-            // 모바일 환경 체크 (화면 너비가 768px 미만일 때)
-            const isMobile = window.innerWidth < 768;
-            
-            canvas.width = Math.min(800, containerWidth - 20); // 여백 고려
-            
-            // 모바일에서는 더 높은 비율 적용
-            if (isMobile) {
-                canvas.height = canvas.width * 0.7; // 모바일에서는 7:10 비율
-                cat.y = canvas.height - cat.height; // 모바일에서는 바닥에 최대한 가깝게
-            } else {
-                canvas.height = canvas.width * 0.5; // 데스크톱에서는 1:2 비율
-                cat.y = canvas.height - cat.height - 20; // 데스크톱에서는 기존 간격 유지
-            }
-            
-            // 고양이 크기도 캔버스 크기에 비례하여 조정
-            cat.width = canvas.width * 0.0625;
-            cat.height = cat.width;
-        }
-
-        // 리사이즈 이벤트 리스너 추가
-        window.addEventListener('resize', resizeCanvas);
-        // 초기 로드 시에도 실행
-        window.addEventListener('load', resizeCanvas);
-
-        catImg.onload = startGame;
-      </script>
-    </main>
-    
-    <!-- github giscus -->
-    <div id="giscus">
-      <script
-        src="https://giscus.app/client.js"
-        data-repo="namhyonwoo/web-static"
-        data-repo-id="R_kgDON1Fbow"
-        data-category-id="DIC_kwDON1Fbo84Cmt6z"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="catppuccin_latte"
-        data-lang="ko"
-        crossorigin="anonymous"
-        async
-      ></script>
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-6 mt-auto">
+    <div class="container text-center">
+      <p>&copy; 2025 인생유틸. All rights reserved.</p>
+      <p>
+        <a href="/asset/terms.html" class="text-gray-300 hover:text-white">이용약관</a>
+        |
+        <a href="/contact.html" class="text-gray-300 hover:text-white">문의하기</a>
+      </p>
     </div>
+  </footer>
+</body>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-6 mt-auto">
-      <div class="container text-center">
-        <p>&copy; 2025 인생유틸. All rights reserved.</p>
-        <p>
-          <a href="/asset/terms.html" class="text-gray-300 hover:text-white"
-            >이용약관</a
-          >
-          |
-          <a href="/contact.html" class="text-gray-300 hover:text-white">문의하기</a>
-        </p>
-      </div>
-    </footer>
-  </body>
 </html>
