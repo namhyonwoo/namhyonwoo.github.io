@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>여행 리뷰 - 인생유틸</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .container {
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .review-card {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .review-image {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+
+    .star-rating {
+      display: flex;
+      align-items: center;
+    }
+
+    .star-rating i {
+      color: #ffd700; /* 금색 별 */
+      margin-right: 2px;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 font-sans">
+  <!-- Header -->
+  <header class="bg-white shadow-md">
+    <nav class="container py-4">
+      <div class="flex items-center justify-between">
+        <a href="/index.html" class="text-2xl font-semibold text-gray-800">인생유틸</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- 분리된 하단 네비게이션 -->
+  <div class="bg-white border-t border-b shadow-sm">
+    <div class="container mx-auto overflow-x-auto">
+      <ul class="flex flex-nowrap space-x-4 px-4 py-2 whitespace-nowrap">
+        <li>
+          <a href="/index.html" class="text-gray-600 hover:text-gray-800 text-sm">홈</a>
+        </li>
+        <li>
+          <a href="/real-age-calculator.html" class="text-gray-600 hover:text-gray-800 text-sm">만 나이 계산기</a>
+        </li>
+        <li>
+          <a href="/bmi-calculator.html" class="text-gray-600 hover:text-gray-800 text-sm">비만도 계산기</a>
+        </li>
+        <li>
+          <a href="/date-calculator.html" class="text-gray-600 hover:text-gray-800 text-sm">날짜 계산기</a>
+        </li>
+        <li>
+          <a href="/text-diff.html" class="text-gray-600 hover:text-gray-800 text-sm">텍스트 비교</a>
+        </li>
+        <li>
+          <a href="/roulette.html" class="text-gray-600 hover:text-gray-800 text-sm">돌려돌려 게임</a>
+        </li>
+        <li>
+          <a href="/ball-game.html" class="text-gray-600 hover:text-gray-800 text-sm">공 튀기기 게임</a>
+        </li>
+        <li>
+          <a href="/trip-review.html" class="text-gray-600 hover:text-gray-800 text-sm">여행 리뷰</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <main class="container py-12">
+    <h2 class="text-2xl font-bold mb-6 text-center">여행 리뷰</h2>
+    <div id="reviews"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-6">
+    <div class="container text-center">
+      <p>&copy; 2025 인생유틸. All rights reserved.</p>
+      <p>
+        <a href="/asset/terms.html" class="text-gray-300 hover:text-white">이용약관</a>
+        |
+        <a href="/contact.html" class="text-gray-300 hover:text-white">문의하기</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const SHEET_ID = '1J1YAYJk2VQvtzVKdGIW1Oh9S7aPJ7eA5Nr5JSvoTaG0';
+    const CLIENT_ID = '115076261781566898306'; // Google API Client ID (필요한 경우)
+    const SHEET_NAME = 'trip-review';
+
+    function initGoogleAPI() {
+            gapi.load('client', start);
+        }
+
+        function start() {
+            gapi.client.init({
+                clientId: CLIENT_ID,  // 클라이언트 아이디가 인증에 필요한 경우 사용.
+                apiKey: "AIzaSyDGM_LGhSYrcwnHHzwncBHp6PMa16o15tk",   // API 키 추가
+                discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
+                scope: 'https://www.googleapis.com/auth/spreadsheets.readonly'  // 인증이 필요한 경우 사용
+            }).then(function() {
+                loadData();
+            }, function(error) {
+              console.error("Error initializing Google API:", error);
+              document.getElementById('reviews').innerHTML = '<p class="text-red-500">데이터를 불러오는 데 실패했습니다.</p>';
+            });
+        }
+
+
+    function loadData() {
+      gapi.client.sheets.spreadsheets.values.get({
+        spreadsheetId: SHEET_ID,
+        range: SHEET_NAME + '!A2:D', // 헤더 제외
+      }).then(function (response) {
+        const reviews = response.result.values;
+        displayReviews(reviews);
+      }, function (error) {
+        console.error("Error loading data:", error);
+        document.getElementById('reviews').innerHTML = '<p class="text-red-500">데이터를 불러오는 데 실패했습니다.</p>';
+
+      });
+    }
+
+    function displayReviews(reviews) {
+      const reviewsContainer = document.getElementById('reviews');
+      reviewsContainer.innerHTML = ''; // Clear previous content
+
+      if (!reviews || reviews.length === 0) {
+        reviewsContainer.innerHTML = '<p>아직 리뷰가 없습니다.</p>';
+        return;
+      }
+
+      reviews.forEach(review => {
+        const [title, content, rating, imageUrl] = review;
+
+        const starRatingHtml = generateStarRating(parseInt(rating)); // 별점 HTML 생성
+
+        const reviewCard = `
+          <div class="review-card">
+            ${imageUrl ? `<img src="${imageUrl}" alt="${title}" class="review-image mb-4">` : ''}
+            <h3 class="text-xl font-semibold mb-2">${title}</h3>
+            <div class="star-rating mb-2">${starRatingHtml}</div>
+            <p>${content}</p>
+          </div>
+        `;
+        reviewsContainer.innerHTML += reviewCard;
+      });
+    }
+
+    // 별점 생성 함수
+    function generateStarRating(rating) {
+      let stars = '';
+      for (let i = 0; i < 5; i++) {
+        if (i < rating) {
+          stars += '<i class="fas fa-star"></i>'; // 채워진 별
+        } else {
+          stars += '<i class="far fa-star"></i>'; // 빈 별
+        }
+      }
+      return stars;
+    }
+
+    // Google API 로드 후 initGoogleAPI 호출
+    window.onload = function() {
+      const script = document.createElement("script");
+      script.src = "https://apis.google.com/js/api.js";
+      script.onload = initGoogleAPI;
+      document.body.appendChild(script);
+    };
+  </script>
+</body>
+
+</html>
