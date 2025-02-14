@@ -110,29 +110,28 @@
     </div>
   </footer>
 
+  <script async src="https://apis.google.com/js/api.js"></script>
   <script>
     const SHEET_ID = '1J1YAYJk2VQvtzVKdGIW1Oh9S7aPJ7eA5Nr5JSvoTaG0';
-    const CLIENT_ID = '306608444474-g0gu5g9eplj7ha8cfpb8cb35jq3ldcv6.apps.googleusercontent.com'; // Google API Client ID (필요한 경우)
     const SHEET_NAME = 'trip-review';
+    const API_KEY = 'AIzaSyDGM_LGhSYrcwnHHzwncBHp6PMa16o15tk'; // API 키 추가
 
     function initGoogleAPI() {
-            gapi.load('client', start);
-        }
+      gapi.load('client', start);
+    }
 
-        function start() {
-            gapi.client.init({
-                clientId: CLIENT_ID,  // 클라이언트 아이디가 인증에 필요한 경우 사용.
-                apiKey: "AIzaSyDGM_LGhSYrcwnHHzwncBHp6PMa16o15tk",   // API 키 추가
-                discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
-                scope: 'https://www.googleapis.com/auth/spreadsheets.readonly'  // 인증이 필요한 경우 사용
-            }).then(function() {
-                loadData();
-            }, function(error) {
-              console.error("Error initializing Google API:", error);
-              document.getElementById('reviews').innerHTML = '<p class="text-red-500">데이터를 불러오는 데 실패했습니다.</p>';
-            });
-        }
-
+    function start() {
+      gapi.client.init({
+        apiKey: API_KEY,
+        discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
+        scope: 'https://www.googleapis.com/auth/spreadsheets.readonly'
+      }).then(function () {
+        loadData();
+      }, function (error) {
+        console.error("Error initializing Google API:", error);
+        document.getElementById('reviews').innerHTML = '<p class="text-red-500">데이터를 불러오는 데 실패했습니다.</p>';
+      });
+    }
 
     function loadData() {
       gapi.client.sheets.spreadsheets.values.get({
@@ -144,13 +143,12 @@
       }, function (error) {
         console.error("Error loading data:", error);
         document.getElementById('reviews').innerHTML = '<p class="text-red-500">데이터를 불러오는 데 실패했습니다.</p>';
-
       });
     }
 
     function displayReviews(reviews) {
       const reviewsContainer = document.getElementById('reviews');
-      reviewsContainer.innerHTML = ''; // Clear previous content
+      reviewsContainer.innerHTML = ''; // 이전 내용 지우기
 
       if (!reviews || reviews.length === 0) {
         reviewsContainer.innerHTML = '<p>아직 리뷰가 없습니다.</p>';
@@ -188,7 +186,7 @@
     }
 
     // Google API 로드 후 initGoogleAPI 호출
-    window.onload = function() {
+    window.onload = function () {
       const script = document.createElement("script");
       script.src = "https://apis.google.com/js/api.js";
       script.onload = initGoogleAPI;
